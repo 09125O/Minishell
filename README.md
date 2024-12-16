@@ -14,3 +14,6 @@ This project consists of creating a simple shell, similar to bash. It will help 
 
 ## Status
 🚧 Work in Progress
+
+## Documentation
+- [Guide Git](./GUIDE_GIT.md) - Guide pratique pour le workflow Git du projet
