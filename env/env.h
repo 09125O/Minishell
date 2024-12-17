@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:31:16 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/17 10:31:36 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:35:39 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,25 @@
 #include <term.h>
 #include <curses.h>
 
-t_env g_env;
+#define ERROR_ENV_MESS "Failed to initialize environment!"
 
 typedef struct s_env
 {
-	char	**var;//tableau qui contiendras les variable d'environnement
+	char	**vars;//tableau qui contiendras les variable d'environnement
+	int		size_vars;//nombre de variables (ou de string) que contient l'environnement
 } t_env;
 
+//utils
+void	errors_env(void);
+int		ft_strlen(char *str);
+char	*ft_strdup(char *src);
+void free_env(t_env *env);
+
 #endif
+
+/*
+Malloc:
+- env (struct)
+- env.vars (double tableau)
+- env.vars[i] (chaque chaine dans le tableau est malloc avec strdup)
+*/
