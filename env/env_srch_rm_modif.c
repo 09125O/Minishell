@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:53:41 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/17 22:03:49 by root             ###   ########.fr       */
+/*   Updated: 2024/12/17 22:17:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	remove_env_var(t_env *env, char *key)
 	}
 	return (-1);
 }
-
+/*NOOOOOOOOOOOOORME ZEBI*/
 int	update_env_variable(t_env *env, char *key, char *new_value)
 {
 	int		i;
