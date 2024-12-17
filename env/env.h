@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:31:16 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/17 12:35:39 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/17 22:04:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 #include <termios.h>
 #include <term.h>
 #include <curses.h>
@@ -28,11 +29,19 @@ typedef struct s_env
 	int		size_vars;//nombre de variables (ou de string) que contient l'environnement
 } t_env;
 
+//Recherche/modif/suppr d'une variable d'environnement
+char	*search_env_variable(t_env *env, char *key);
+int		remove_env_var(t_env *env, char *key);
+int		update_env_variable(t_env *env, char *key, char *new_value);
+
 //utils
 void	errors_env(void);
-int		ft_strlen(char *str);
+void	free_env(t_env *env);
 char	*ft_strdup(char *src);
-void free_env(t_env *env);
+int		ft_strlen(char *str);
+int		ft_strncmp(char *s1, char *s2, int n);
+char	*ft_strcpy(char *dst, char *src);
+char	*ft_strcat(char *dst, char *src);
 
 #endif
 

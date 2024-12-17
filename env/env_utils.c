@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:52:00 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/17 12:39:59 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:41:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int	ft_strncmp(char *s1, char *s2, int n)
+{
+	int	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] == s2[i] && s1[i] != '\0')
+	{
+		if (i < (n - 1))
+			i++;
+		else
+			return (0);
+	}
+	return (s1[i] - s2[i]);
+}
 
 void free_env(t_env *env)
 {
