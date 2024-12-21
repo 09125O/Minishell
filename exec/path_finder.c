@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 15:18:29 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/21 15:19:41 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:23:13 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*path_finder(char *cmd, char **env)
 	char	*schr_path;
 	char	*command;
 
-	schr_path = env_srch("PATH", env);
+	schr_path = env_srch("PATH", env); //A voir si on doit ajouter "PATH:" a la place de "PATH"
 	if (!schr_path)
 	{
 		if (access(cmd, F_OK) == 0)
