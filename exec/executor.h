@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:46:39 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/21 16:42:48 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:03:49 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void	handle_redirection(t_redirection *redir);
 //utils
 char	**ft_split(const char *s, char c);
 void	free_dbl_tab(char **tab);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
