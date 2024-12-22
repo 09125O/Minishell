@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 15:18:29 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/21 15:23:13 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:24:17 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*path_finder(char *cmd, char **env)
 	if (!all_path)
 		return (NULL);
 	command = check_paths(all_path, cmd);
-	ft_free_split(all_path);
+	free_dbl_tab(all_path);
 	if (command != NULL)
 		return (command);
 	return (cmd);
