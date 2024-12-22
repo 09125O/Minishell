@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_utils.c                                   :+:      :+:    :+:   */
+/*   executor_utils_SPLIT.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 14:20:36 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/21 14:23:46 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:45:49 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "../executor.h"
 
 static size_t	count_word(const char *s, char c)
 {
