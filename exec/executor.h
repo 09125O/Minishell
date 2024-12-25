@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:46:39 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/22 12:33:45 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/25 12:10:14 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 typedef struct s_exec
 {
-	int				pipe_count;	// Le nombre de pipe
-	int				**pipes;	//	un double tableau qui gerera les pipes
-	int				last_exit_code;
+	int				pipe_count;		// Le nombre de pipe
+	int				**pipes;		// Un double tableau qui gerera les pipes
+	int				last_exit_code; // Le derniers code d'erreurs a ressortir, il sera recup grace a WIFEXITED
 } t_exec;
 
 //A voir avec le parsing pour cette struct

@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:58:07 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/22 12:09:49 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/25 12:20:45 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,15 @@ void	close_pipes(t_exec *exec)
 	i = 0;
 	while (i < exec->pipe_count)
 	{
-		// Ferme les deux extrémités de chaque pipe
-		close(exec->pipes[i][0]); // Ferme l'extrémité de lecture
-		close(exec->pipes[i][1]); // Ferme l'extrémité d'écriture
+		close(exec->pipes[i][0]);
+		close(exec->pipes[i][1]);
 		i++;
 	}
-	// Libère la mémoire allouée pour les pipes
 	i = 0;
 	while (i < exec->pipe_count)
 	{
-		free(exec->pipes[i]); // Libère chaque pipe
+		free(exec->pipes[i]);
 		i++;
 	}
-	free(exec->pipes); // Libère le tableau des pipes
+	free(exec->pipes);
 }

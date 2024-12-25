@@ -6,7 +6,7 @@
 /*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 14:19:10 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/22 12:40:32 by obouhour         ###   ########.fr       */
+/*   Updated: 2024/12/25 12:32:10 by obouhour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	init_executor(t_exec *exec, int pipe_count)
 	}
 }
 
-void	execute_commands(t_command **commands, int cmd_count, char **env)
-{
+void	execute_commands(t_command **commands, int cmd_count, char **env)//Avoir comment sera recu la commande, au pire t_commande devient un char ** et on recevra la redirection seule
+{																		//Et je creerais une fonction qui mettra tout ca dans la struc t_command
 	int		i;
 	int		status;
 	t_exec	exec;
@@ -77,73 +77,3 @@ void	execute_commands(t_command **commands, int cmd_count, char **env)
 		i++;
 	}
 }
-
-/*Test par gpt*/
-// t_command *create_command(char **args)
-// {
-//     t_command *cmd;
-
-//     cmd = malloc(sizeof(t_command));
-//     if (!cmd)
-//     {
-//         perror("malloc");
-//         exit(EXIT_FAILURE);
-//     }
-
-//     cmd->args = args;
-//     cmd->redir = NULL; // Pas de redirection pour ce test
-//     return cmd;
-// }
-
-// // Fonction utilitaire : libère les commandes
-// void free_commands(t_command **commands, int cmd_count)
-// {
-//     for (int i = 0; i < cmd_count; i++)
-//     {
-//         free(commands[i]->args); // Libérer les arguments (s'ils ont été alloués dynamiquement)
-//         free(commands[i]);       // Libérer la structure
-//     }
-//     free(commands); // Libérer le tableau de commandes
-// }
-
-// // Fonction principale
-// int main(int ac, char **av, char **envp)
-// {
-//     t_command **commands;
-//     int cmd_count;
-//     int i;
-
-//     if (ac < 2)
-//     {
-//         printf("Usage: %s <cmd1> [cmd2 ...]\n", av[0]);
-//         return 1;
-//     }
-
-//     cmd_count = ac - 1;
-//     commands = malloc(sizeof(t_command *) * cmd_count);
-//     if (!commands)
-//     {
-//         perror("malloc");
-//         return 1;
-//     }
-
-//     for (i = 0; i < cmd_count; i++)
-//     {
-//         // Diviser chaque commande entrée par l'utilisateur en arguments
-//         char **args = ft_split(av[i + 1], ' '); // Remplacez par votre implémentation de ft_split
-//         if (!args)
-//         {
-//             perror("ft_split");
-//             free_commands(commands, i);
-//             return 1;
-//         }
-
-//         commands[i] = create_command(args);
-//     }
-
-//     execute_commands(commands, cmd_count, envp);
-
-//     free_commands(commands, cmd_count);
-
-//     return 0;
-// }
