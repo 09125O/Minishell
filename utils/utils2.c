@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_utils_SPLIT.c                             :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 14:20:36 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/22 11:45:49 by obouhour         ###   ########.fr       */
+/*   Created: 2025/02/04 17:12:19 by root              #+#    #+#             */
+/*   Updated: 2025/02/04 17:23:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../executor.h"
+#include "utils.h"
 
 static size_t	count_word(const char *s, char c)
 {
@@ -93,17 +93,17 @@ char	**ft_split(const char *s, char c)
 	return (ptr);
 }
 
-void	free_dbl_tab(char **tab)
+void	free_dbl_tab(char **strs)
 {
 	int	i;
 
-	if (!tab)
+	if (!strs)
 		return ;
 	i = 0;
-	while (tab[i])
+	while (strs[i])
 	{
-		free(tab[i]);
+		free(strs[i]);
 		i++;
 	}
-	free(tab);
+	free(strs);
 }

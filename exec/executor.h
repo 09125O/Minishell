@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:46:39 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/25 12:10:14 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:08:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include "../env/env.h"
+#include "../signals/signals.h"
+#include "../utils/utils.h"
 
 typedef struct s_exec
 {
@@ -57,13 +60,5 @@ void	handle_redirection(t_redirection *redir);
 void	spawn_processes(t_exec *exec, t_command **commands, int cmd_count, char **env);
 void	setup_pipes(t_exec *exec, int cmd_index, int cmd_count);
 void	close_pipes(t_exec *exec);
-
-//utils
-char	**ft_split(const char *s, char c);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-void	free_dbl_tab(char **tab);
-int		ft_strcmp(char *s1, char *s2);
-size_t	ft_strlen(const char *str);
 
 #endif

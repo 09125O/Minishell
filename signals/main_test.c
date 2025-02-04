@@ -1,6 +1,6 @@
 #include "signals.h"
 
-pid_t global_pid = 0;
+// pid_t global_pid = 0;
 
 // int main(void)
 // {
@@ -77,46 +77,46 @@ pid_t global_pid = 0;
 // }
 
 /*Main pour tester les heredocs par mon gars gpt*/
-int main(void)
-{
-    char *line;
+// int main(void)
+// {
+//     char *line;
 
-    printf("Bienvenue dans le mini-shell pour tester les heredocs !\n");
-    printf("Commandes disponibles :\n");
-    printf("  heredoc <DELIMITER> : Tester un heredoc\n");
-    printf("  exit                : Quitter le shell\n");
+//     printf("Bienvenue dans le mini-shell pour tester les heredocs !\n");
+//     printf("Commandes disponibles :\n");
+//     printf("  heredoc <DELIMITER> : Tester un heredoc\n");
+//     printf("  exit                : Quitter le shell\n");
 
-    while (1)
-    {
-        line = readline("test_shell> ");
-        if (!line)
-        {
-            printf("Fin du shell (EOF).\n");
-            break;
-        }
+//     while (1)
+//     {
+//         line = readline("test_shell> ");
+//         if (!line)
+//         {
+//             printf("Fin du shell (EOF).\n");
+//             break;
+//         }
 
-        if (strcmp(line, "exit") == 0)
-        {
-            free(line);
-            printf("Exiting shell...\n");
-            break;
-        }
-        else if (strncmp(line, "heredoc ", 8) == 0)
-        {
-            // Récupère le délimiteur
-            char *delimiter = line + 8;
-            if (strlen(delimiter) > 0)
-                handle_heredoc(delimiter);
-            else
-                printf("Erreur : Aucun délimiteur fourni.\n");
-        }
-        else
-        {
-            printf("Commande non reconnue : %s\n", line);
-        }
+//         if (strcmp(line, "exit") == 0)
+//         {
+//             free(line);
+//             printf("Exiting shell...\n");
+//             break;
+//         }
+//         else if (strncmp(line, "heredoc ", 8) == 0)
+//         {
+//             // Récupère le délimiteur
+//             char *delimiter = line + 8;
+//             if (strlen(delimiter) > 0)
+//                 handle_heredoc(delimiter);
+//             else
+//                 printf("Erreur : Aucun délimiteur fourni.\n");
+//         }
+//         else
+//         {
+//             printf("Commande non reconnue : %s\n", line);
+//         }
 
-        free(line);
-    }
+//         free(line);
+//     }
 
-    return 0;
-}
+//     return 0;
+// }

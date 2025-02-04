@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:10:09 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/19 11:02:36 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:17:54 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	count_env_vars(char **shell_env)
 	return(i);
 }
 
-static t_env	*shell_env_null(t_env *env, char **shell_env)
+static t_env	*shell_env_null(t_env *env)
 {
 	env->size_vars = 0;
 	env->vars = malloc(sizeof(char *)); // Allouer un tableau vide
@@ -45,7 +45,7 @@ t_env	*init_env(char **shell_env)
 	if (!env)
 		errors_env();
 	if (!shell_env)
-		return (shell_env_null(env, shell_env));
+		return (shell_env_null(env));
 	env->size_vars = count_env_vars(shell_env);
 	env->vars = malloc(sizeof(char *) * (env->size_vars + 1));
 	if (!env->vars)

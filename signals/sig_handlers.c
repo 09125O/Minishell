@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sig_handlers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhour <obouhour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 13:28:21 by obouhour          #+#    #+#             */
-/*   Updated: 2024/12/19 14:19:52 by obouhour         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:25:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
+
+pid_t global_pid;
 
 void	eof_handler(void)
 {
