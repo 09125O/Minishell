@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 12:32:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/02/04 16:45:26 by root             ###   ########.fr       */
+/*   Updated: 2025/02/04 18:47:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,23 @@
 // }
 
 
-void	free_cmd(t_command	**commands)
+void free_cmd(t_command **commands)
 {
 	int	i;
 
 	i = 0;
+	if (!commands)
+		return;
 	while (commands[i])
 	{
+		if (commands[i]->args)
+			free_dbl_tab(commands[i]->args);
+		if (commands[i]->redir)
+			free(commands[i]->redir);
 		free(commands[i]);
 		i++;
 	}
-	free (commands);
+	free(commands);
 }
 
 char	*cmd_used(char *arg)
@@ -106,12 +112,12 @@ char	*cmd_used(char *arg)
 	return (cmd);
 }
 
-t_command	**create_command(char **args, int cmd_count)
+t_command **create_command(char **args, int cmd_count)
 {
 	int			i;
 	t_command	**commands;
 
-	commands = malloc(sizeof(t_command *) * cmd_count);
+	commands = malloc(sizeof(t_command *) * (cmd_count + 1)); // +1 for NULL terminator
 	if (!commands)
 	{
 		perror("malloc");
@@ -130,8 +136,9 @@ t_command	**create_command(char **args, int cmd_count)
 		commands[i]->redir = NULL; // Pas de redirection pour ce test
 		i++;
 	}
+	commands[i] = NULL; // NULL terminator
 	return (commands);
-}
+	}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -144,7 +151,6 @@ int	main(int ac, char **av, char **envp)
 		printf("Usage: %s <cmd1> [cmd2 ...]\n", av[0]);
 		return 1;
 	}
-
 	// Initialiser les variables d'environnement
 	env = init_env(envp);
 	if (!env)
@@ -152,20 +158,15 @@ int	main(int ac, char **av, char **envp)
 		perror("Failed to initialize environment");
 		return EXIT_FAILURE;
 	}
-
 	// Configurer les signaux
 	configure_signals();
-
 	// Créer les commandes
 	cmd_count = ac - 1;
 	commands = create_command(av, cmd_count);
-
 	// Exécuter les commandes
 	execute_commands(commands, cmd_count, env->vars);
-
 	// Libérer la mémoire
 	free_cmd(commands);
 	free_env(env);
-
 	return 0;
 }

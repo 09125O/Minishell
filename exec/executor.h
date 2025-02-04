@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:46:39 by obouhour          #+#    #+#             */
-/*   Updated: 2025/02/04 17:08:28 by root             ###   ########.fr       */
+/*   Updated: 2025/02/04 18:39:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef	struct s_command
 
 //exec
 void	execute_commands(t_command **commands, int cmd_count, char **env);
-void exec_command(char **args, char **env);
+void	exec_command(char **args, char **env);
 
 //find path
 char	*path_finder(char *cmd, char **env);
