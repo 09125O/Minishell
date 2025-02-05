@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 12:32:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/02/04 18:47:25 by root             ###   ########.fr       */
+/*   Updated: 2025/02/05 15:47:52 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@
 // }
 
 
-void free_cmd(t_command **commands)
+void	free_cmd(t_command **commands)
 {
 	int	i;
 
@@ -112,16 +112,18 @@ char	*cmd_used(char *arg)
 	return (cmd);
 }
 
-t_command **create_command(char **args, int cmd_count)
+t_command	**create_command(char **args, int cmd_count)
 {
 	int			i;
 	t_command	**commands;
 
-	commands = malloc(sizeof(t_command *) * (cmd_count + 1)); // +1 for NULL terminator
+	if (!args || cmd_count <= 0)
+		return (NULL);
+	commands = malloc(sizeof(t_command *) * (cmd_count + 1));
 	if (!commands)
 	{
 		perror("malloc");
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	i = 0;
 	while (i < cmd_count)
@@ -129,44 +131,71 @@ t_command **create_command(char **args, int cmd_count)
 		commands[i] = malloc(sizeof(t_command));
 		if (!commands[i])
 		{
-			perror("malloc");
-			exit(EXIT_FAILURE);
+			free_cmd(commands);
+			return (NULL);
 		}
-		commands[i]->args = ft_split(args[i + 1], ' ');
-		commands[i]->redir = NULL; // Pas de redirection pour ce test
+		commands[i]->args = ft_split(args[i], ' ');
+		if (!commands[i]->args)
+		{
+			free_cmd(commands);
+			return (NULL);
+		}
+		commands[i]->redir = NULL;
 		i++;
 	}
-	commands[i] = NULL; // NULL terminator
+	commands[i] = NULL;
 	return (commands);
-	}
+}
 
 int	main(int ac, char **av, char **envp)
 {
-	int			cmd_count;
 	t_command	**commands;
 	t_env		*env;
+	char		*line;
+	char		**args;
+	int		cmd_count;
 
-	if (ac < 2)
-	{
-		printf("Usage: %s <cmd1> [cmd2 ...]\n", av[0]);
-		return 1;
-	}
-	// Initialiser les variables d'environnement
+	(void)ac;
+	(void)av;
 	env = init_env(envp);
 	if (!env)
 	{
 		perror("Failed to initialize environment");
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
-	// Configurer les signaux
 	configure_signals();
-	// Créer les commandes
-	cmd_count = ac - 1;
-	commands = create_command(av, cmd_count);
-	// Exécuter les commandes
-	execute_commands(commands, cmd_count, env->vars);
-	// Libérer la mémoire
-	free_cmd(commands);
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (!line)
+		{
+			printf("\n");
+			break;
+		}
+		if (*line)
+		{
+			add_history(line);
+			args = ft_split(line, '|');
+			if (args)
+			{
+				cmd_count = 0;
+				while (args[cmd_count])
+					cmd_count++;
+				if (cmd_count > 0)
+				{
+					commands = create_command(args, cmd_count);
+					if (commands)
+					{
+						execute_commands(commands, cmd_count, env->vars);
+						free_cmd(commands);
+					}
+				}
+				free_dbl_tab(args);
+			}
+		}
+		free(line);
+	}
 	free_env(env);
-	return 0;
+	clear_history();
+	return (0);
 }
