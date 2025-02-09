@@ -1,0 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/05 16:15:47 by root              #+#    #+#             */
+/*   Updated: 2025/02/05 17:11:35 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "builtins.h"
+
+// void    ft_error(char *cmd, char *arg, char *msg)
+// {
+//     if (cmd)
+//         fprintf(stderr, "minishell: %s: ", cmd);
+//     if (arg)
+//         fprintf(stderr, "%s: ", arg);
+//     if (msg)
+//         fprintf(stderr, "%s", msg);
+//     fprintf(stderr, "\n");
+// }
+
+int	ft_pwd(void)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		ft_error("pwd", NULL, strerror(errno));
+		return (1);
+	}
+	printf("%s\n", cwd);
+	free(cwd);
+	return (0);
+}
+
+// int main(void)
+// {
+// 	ft_pwd();
+// 	return (0);
+// }
