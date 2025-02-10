@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:46:39 by obouhour          #+#    #+#             */
-/*   Updated: 2025/02/04 18:39:19 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 13:13:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "../env/env.h"
 #include "../signals/signals.h"
 #include "../utils/utils.h"
+#include "../builtins/builtins.h"
 
 typedef struct s_exec
 {

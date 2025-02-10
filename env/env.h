@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:31:16 by obouhour          #+#    #+#             */
-/*   Updated: 2025/02/10 12:54:43 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 13:17:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@
 #include <termios.h>
 #include <term.h>
 #include <curses.h>
-#include "../exec/executor.h"
-#include "../signals/signals.h"
-#include "../utils/utils.h"
-#include "../builtins/builtins.h"
 
 #define ERROR_ENV_MESS "Failed to initialize environment!"
 
@@ -32,6 +28,11 @@ typedef struct s_env
 	char	**vars;//tableau qui contiendras les variable d'environnement
 	int		size_vars;//nombre de variables (ou de string) que contient l'environnement
 } t_env;
+
+#include "../exec/executor.h"
+#include "../signals/signals.h"
+#include "../utils/utils.h"
+#include "../builtins/builtins.h"
 
 //Recherche/modif/suppr d'une variable d'environnement
 t_env	*init_env(char **shell_env);

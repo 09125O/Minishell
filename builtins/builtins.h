@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:53:47 by root              #+#    #+#             */
-/*   Updated: 2025/02/10 12:51:48 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 13:16:21 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		ft_export(char **args, t_env *env);
 int		ft_echo(char **args);
 void	ft_exit(int status);
 
+//utils
 void	ft_error(char *cmd, char *arg, char *msg);
 
 #endif

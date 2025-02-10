@@ -6,13 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:51:05 by root              #+#    #+#             */
-/*   Updated: 2025/02/10 13:02:11 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 13:21:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_unset(char **args, char **env)
+int	ft_unset(char **args, t_env *env)
 {
 	int	i;
 	int	status;

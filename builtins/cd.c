@@ -6,24 +6,25 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:53:17 by root              #+#    #+#             */
-/*   Updated: 2025/02/10 13:09:13 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 13:21:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	update_pwd(char **env)
+static void update_pwd(t_env *env)
 {
 	char	*cwd;
 	char	*old_pwd;
 
-	old_pwd = ft_getenv("PWD", env); //sera ajouter ensuite avec la partie env
+	old_pwd = search_env_variable(env, "PWD");
 	if (old_pwd)
-		ft_setenv("OLDPWD", old_pwd, env); //sera ajouter ensuite avec la partie env
+		update_env_variable(env, "OLDPWD", old_pwd);
+
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 	{
-		ft_setenv("PWD", cwd, env);
+		update_env_variable(env, "PWD", cwd);
 		free(cwd);
 	}
 }
@@ -60,6 +61,6 @@ int	ft_cd(char **args, t_env *env)
 		ft_error("cd", path, strerror(errno));
 		return (1);
 	}
-	update_pwd(env->vars);  // Passer env->vars à update_pwd
+	update_pwd(env);  // Passer env->vars à update_pwd
 	return (0);
 }

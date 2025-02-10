@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 12:32:13 by obouhour          #+#    #+#             */
-/*   Updated: 2025/02/05 15:47:52 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 13:15:00 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,16 @@ t_command	**create_command(char **args, int cmd_count)
 	return (commands);
 }
 
-int	main(int ac, char **av, char **envp)
+static int is_builtin(char *cmd);
+static int execute_builtin(char **args, t_env *env);
+
+int main(int ac, char **av, char **envp)
 {
 	t_command	**commands;
 	t_env		*env;
 	char		*line;
 	char		**args;
-	int		cmd_count;
+	int			cmd_count;
 
 	(void)ac;
 	(void)av;
@@ -186,7 +189,11 @@ int	main(int ac, char **av, char **envp)
 					commands = create_command(args, cmd_count);
 					if (commands)
 					{
-						execute_commands(commands, cmd_count, env->vars);
+						// Check for builtin if single command
+						if (cmd_count == 1 && is_builtin(commands[0]->args[0]))
+							execute_builtin(commands[0]->args, env);
+						else
+							execute_commands(commands, cmd_count, env->vars);
 						free_cmd(commands);
 					}
 				}
@@ -198,4 +205,35 @@ int	main(int ac, char **av, char **envp)
 	free_env(env);
 	clear_history();
 	return (0);
+}
+
+
+static int is_builtin(char *cmd)
+{
+	return (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
+			!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") ||
+			!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env") ||
+			!ft_strcmp(cmd, "exit"));
+}
+
+static int execute_builtin(char **args, t_env *env)
+{
+	if (!ft_strcmp(args[0], "echo"))
+		return (ft_echo(args));
+	if (!ft_strcmp(args[0], "cd"))
+		return (ft_cd(args, env));
+	if (!ft_strcmp(args[0], "pwd"))
+		return (ft_pwd());
+	if (!ft_strcmp(args[0], "export"))
+		return (ft_export(args, env));
+	if (!ft_strcmp(args[0], "unset"))
+		return (ft_unset(args, env));
+	if (!ft_strcmp(args[0], "env"))
+		return (ft_env(env));
+	if (!ft_strcmp(args[0], "exit"))
+	{
+		ft_exit(0);
+		return (0);
+	}
+	return (1);
 }
