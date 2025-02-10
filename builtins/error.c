@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 17:08:20 by root              #+#    #+#             */
-/*   Updated: 2025/02/10 13:06:43 by root             ###   ########.fr       */
+/*   Created: 2025/02/10 12:51:49 by root              #+#    #+#             */
+/*   Updated: 2025/02/10 13:10:30 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ft_echo(char **args)
+void ft_error(char *cmd, char *arg, char *msg)
 {
-	int	i;
-	int	n_flag;
-
-	if (!args)
-		return (1);
-	n_flag = 0;
-	i = 1;
-	if (args[1] && ft_strcmp(args[1], "-n") == 0)
+	write(2, "minishell: ", 11);
+	if (cmd)
 	{
-		n_flag = 1;
-		i++;
+		write(2, cmd, ft_strlen(cmd));
+		write(2, ": ", 2);
 	}
-	while (args[i])
+	if (arg)
 	{
-		printf("%s", args[i]);
-		if (args[i + 1])
-			printf(" ");
-		i++;
+		write(2, arg, ft_strlen(arg));
+		write(2, ": ", 2);
 	}
-	if (!n_flag)
-		printf("\n");
-	return (0);
+	if (msg)
+		write(2, msg, ft_strlen(msg));
+	write(2, "\n", 1);
 }

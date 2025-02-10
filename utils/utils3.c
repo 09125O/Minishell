@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:13:30 by root              #+#    #+#             */
-/*   Updated: 2025/02/04 17:14:54 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 13:03:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,20 @@ char	*ft_strcat(char *dst, char *src)
 	}
 	dst[i] = '\0';
 	return (dst);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	if (!s)
+		return (NULL);
+		
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
 }

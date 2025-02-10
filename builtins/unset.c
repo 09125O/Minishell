@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:51:05 by root              #+#    #+#             */
-/*   Updated: 2025/02/09 16:53:20 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 13:02:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_unset(char **args, char **env)
 	i = 1;
 	while (args[i])
 	{
-		if (ft_remove_env(args[i], env) == -1) //sera ajouter ensuite avec la partie env
+		if (remove_env_var(env, args[i]) == -1) //ne le detecte pas
 		{
 			ft_error("unset", args[i], "not a valid identifier");
 			status = 1;

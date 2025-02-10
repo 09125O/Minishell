@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:31:16 by obouhour          #+#    #+#             */
-/*   Updated: 2025/02/04 17:21:55 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 12:54:43 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "../exec/executor.h"
 #include "../signals/signals.h"
 #include "../utils/utils.h"
+#include "../builtins/builtins.h"
 
 #define ERROR_ENV_MESS "Failed to initialize environment!"
 

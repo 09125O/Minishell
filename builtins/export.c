@@ -6,49 +6,48 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 17:02:54 by root              #+#    #+#             */
-/*   Updated: 2025/02/09 17:06:30 by root             ###   ########.fr       */
+/*   Updated: 2025/02/10 12:58:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	print_sorted_env(char **env)
+static void print_sorted_env(t_env *env)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
 	i = 0;
-	while (env[i])
-		i++;
-	while (i > 0)
+	while (i < env->size_vars)
 	{
 		j = 0;
-		while (j < i - 1)
+		while (j < env->size_vars - 1)
 		{
-			if (strcmp(env[j], env[j + 1]) > 0)
+			if (ft_strcmp(env->vars[j], env->vars[j + 1]) > 0)
 			{
-				tmp = env[j];
-				env[j] = env[j + 1];
-				env[j + 1] = tmp;
+				tmp = env->vars[j];
+				env->vars[j] = env->vars[j + 1];
+				env->vars[j + 1] = tmp;
 			}
 			j++;
 		}
-		i--;
+		i++;
 	}
 	i = 0;
-	while (env[i])
+	while (i < env->size_vars)
 	{
-		printf("declare -x %s\n", env[i]);
+		printf("declare -x %s\n", env->vars[i]);
 		i++;
 	}
 }
 
-int	ft_export(char **args, char **env)
+int ft_export(char **args, t_env *env)
 {
 	int		i;
 	int		status;
 	char	*value;
+	char	*key;
 
 	if (!args || !env)
 		return (1);
@@ -61,17 +60,21 @@ int	ft_export(char **args, char **env)
 	i = 1;
 	while (args[i])
 	{
-		value = ft_strchr(args[i], '=');
+		key = ft_strdup(args[i]);
+		if (!key)
+			return (1);
+		value = ft_strchr(key, '=');
 		if (value)
 		{
 			*value = '\0';
 			value++;
-			if (ft_setenv(args[i], value, env) == -1)
+			if (update_env_variable(env, key, value) == -1)
 			{
 				ft_error("export", args[i], "not a valid identifier");
 				status = 1;
 			}
 		}
+		free(key);
 		i++;
 	}
 	return (status);
