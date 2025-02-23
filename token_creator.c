@@ -6,7 +6,7 @@
 /*   By: douzgane <douzgane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:47:54 by douzgane          #+#    #+#             */
-/*   Updated: 2025/02/10 20:37:14 by douzgane         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:56:03 by douzgane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,62 @@ t_token *create_operator_token(char *input, int *i)
     return (create_token(NULL, type));
 }
 
+t_token *create_env_var_token(char *input, int *i)
+{
+    int len = 0;
+
+    // Skip the $
+    (*i)++;
+    // Calculer la longueur de la variable
+    while (input[*i + len] && is_env_char(input[*i + len]))
+        len++;
+
+    // Allouer la mémoire pour la variable avec le $
+    char *value = malloc(len + 2); // +2 pour le $ et le \0
+    if (!value)
+        return (NULL);
+
+    // Copier le $ et le nom de la variable
+    value[0] = '$';
+    int j = 0;
+    while (j < len)
+    {
+        value[j + 1] = input[*i + j];
+        j++;
+    }
+    value[j + 1] = '\0';
+    *i += len;
+
+    return (create_token(value, TOKEN_ENV_VAR));
+}
+
 t_token_type get_token_type(char *input, int *i)
 {
-    if (input[*i] == '|') return (TOKEN_PIPE);
-    if (input[*i] == '<') return (TOKEN_REDIRECT_IN);
-    if (input[*i] == '>') return (TOKEN_REDIRECT_OUT);
+    if (input[*i] == '|')
+    {
+        (*i)++;
+        return (TOKEN_PIPE);
+    }
+    if (input[*i] == '<')
+    {
+        (*i)++;
+        if (input[*i] == '<')
+        {
+            (*i)++;
+            return (TOKEN_HEREDOC);
+        }
+        return (TOKEN_REDIRECT_IN);
+    }
+    if (input[*i] == '>')
+    {
+        (*i)++;
+        if (input[*i] == '>')
+        {
+            (*i)++;
+            return (TOKEN_APPEND);
+        }
+        return (TOKEN_REDIRECT_OUT);
+    }
     return (TOKEN_EOF);
 }
 
