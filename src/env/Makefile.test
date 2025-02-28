@@ -1,0 +1,43 @@
+NAME = test_env
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+INCLUDES = -I../../includes -I../../libft/inc
+LIBS = -L../../libft -lft
+
+OBJ_DIR = obj
+
+SRCS = env_core.c \
+       env_expand.c \
+       env_expand_utils.c \
+       env_parser.c \
+       env_utils.c \
+       main_test.c
+
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+
+all: $(OBJ_DIR) $(NAME)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	rm -rf $(OBJ_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+test: all
+	./$(NAME)
+
+.PHONY: all clean fclean re test

@@ -1,0 +1,103 @@
+NAME = test_builtins
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+INCLUDES = -I../../includes -I../../libft/inc
+LIBS = -L../../libft -lft -lreadline
+
+OBJ_DIR = ../../obj
+
+BUILTINS_SRCS = cd.c \
+       echo.c \
+       env.c \
+       exit.c \
+       export.c \
+       pwd.c \
+       unset.c \
+       utils.c \
+       main_test.c
+
+ENV_SRCS = ../env/env_core.c \
+       ../env/env_expand.c \
+       ../env/env_expand_utils.c \
+       ../env/env_parser.c \
+       ../env/env_utils.c
+
+LEXER_SRCS = ../lexer/lexer.c \
+       ../lexer/char_utils.c \
+       ../lexer/env_utils.c \
+       ../lexer/error_utils.c \
+       ../lexer/operator_utils.c \
+       ../lexer/quote_utils.c \
+       ../lexer/token_utils.c \
+       ../lexer/word_utils.c
+
+PARSER_SRCS = ../parser/parser_core.c \
+       ../parser/parser_cmd.c \
+       ../parser/parser_memory.c \
+       ../parser/parser_utils.c \
+       ../parser/parser_args.c
+
+SIGNALS_SRCS = ../signals/signals.c
+
+UTILS_SRCS = ../utils/utils.c
+
+BUILTINS_OBJS = $(addprefix $(OBJ_DIR)/builtins/, $(BUILTINS_SRCS:.c=.o))
+ENV_OBJS = $(addprefix $(OBJ_DIR)/env/, $(notdir $(ENV_SRCS:.c=.o)))
+LEXER_OBJS = $(addprefix $(OBJ_DIR)/lexer/, $(notdir $(LEXER_SRCS:.c=.o)))
+PARSER_OBJS = $(addprefix $(OBJ_DIR)/parser/, $(notdir $(PARSER_SRCS:.c=.o)))
+SIGNALS_OBJS = $(addprefix $(OBJ_DIR)/signals/, $(notdir $(SIGNALS_SRCS:.c=.o)))
+UTILS_OBJS = $(addprefix $(OBJ_DIR)/utils/, $(notdir $(UTILS_SRCS:.c=.o)))
+
+OBJS = $(BUILTINS_OBJS) $(ENV_OBJS) $(LEXER_OBJS) $(PARSER_OBJS) $(SIGNALS_OBJS) $(UTILS_OBJS)
+
+all: $(OBJ_DIR) $(NAME)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)/builtins
+	@mkdir -p $(OBJ_DIR)/env
+	@mkdir -p $(OBJ_DIR)/lexer
+	@mkdir -p $(OBJ_DIR)/parser
+	@mkdir -p $(OBJ_DIR)/signals
+	@mkdir -p $(OBJ_DIR)/utils
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
+
+$(OBJ_DIR)/builtins/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR)/env/%.o: ../env/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR)/lexer/%.o: ../lexer/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR)/parser/%.o: ../parser/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR)/signals/%.o: ../signals/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJ_DIR)/utils/%.o: ../utils/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	rm -rf $(OBJ_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+test: all
+	./$(NAME)
+
+.PHONY: all clean fclean re test

@@ -1,0 +1,68 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile.test                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: douzgane <douzgane@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/25 00:45:21 by douzgane          #+#    #+#              #
+#    Updated: 2025/02/25 00:43:46 by douzgane         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = test_minishell
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+INCLUDES = -I../includes -I../libft/inc
+LIBS = -L../libft -lft
+
+SRCS = test_minishell.c \
+       lexer/lexer.c \
+       lexer/char_utils.c \
+       lexer/env_utils.c \
+       lexer/error_utils.c \
+       lexer/operator_utils.c \
+       lexer/quote_utils.c \
+       lexer/token_utils.c \
+       lexer/word_utils.c \
+       parser/parser_core.c \
+       parser/parser_cmd.c \
+       parser/parser_memory.c \
+       parser/parser_utils.c \
+       parser/parser_args.c \
+       env/env_array.c \
+       env/env_builtins.c \
+       env/env_core.c \
+       env/env_expand.c \
+       env/env_expand_utils.c \
+       env/env_ops.c \
+       env/env_parser.c \
+       env/env_sort.c \
+       env/env_special.c \
+       env/env_sync.c \
+       env/env_utils.c
+
+OBJS = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+test: all
+	./$(NAME)
+
+.PHONY: all clean fclean re test

@@ -1,0 +1,65 @@
+NAME = test_executor
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+INCLUDES = -I../../includes -I../../libft/inc
+LIBS = -L../../libft -lft -lreadline
+
+OBJ_DIR = obj
+
+SRCS = exec_commands.c \
+       handle_process.c \
+       path_finder.c \
+       redir.c \
+       ../parser/parser_core.c \
+       ../parser/parser_cmd.c \
+       ../parser/parser_memory.c \
+       ../parser/parser_utils.c \
+       ../parser/parser_args.c \
+       ../lexer/lexer.c \
+       ../lexer/char_utils.c \
+       ../lexer/env_utils.c \
+       ../lexer/error_utils.c \
+       ../lexer/operator_utils.c \
+       ../lexer/quote_utils.c \
+       ../lexer/token_utils.c \
+       ../lexer/word_utils.c \
+       ../env/env_expand.c \
+       ../env/env_expand_utils.c \
+       ../env/env_core.c \
+       ../env/env_utils.c \
+       ../env/env_parser.c \
+       ../utils/utils.c \
+       main_test.c
+
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+
+all: $(OBJ_DIR) $(NAME)
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/parser
+	@mkdir -p $(OBJ_DIR)/lexer
+	@mkdir -p $(OBJ_DIR)/env
+	@mkdir -p $(OBJ_DIR)/utils
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	rm -rf $(OBJ_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+test: all
+	./$(NAME)
+
+.PHONY: all clean fclean re test
