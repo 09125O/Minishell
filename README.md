@@ -36,38 +36,37 @@ Un shell simplifié, inspiré de **bash**, pour comprendre le fonctionnement int
 ## ⚙️ Prérequis & Compilation
 - **Prerequisites** : gcc / clang, make, readline (`libreadline-dev`)  
 - **Compiler** :
-```sh
+```
 make
-Nettoyer :
-
-sh
-Copier le code
+```
+## Nettoyer :
+```
 make clean
 make fclean
 L’exécutable final : ./minishell
-
-▶️ Exécution
-sh
-Copier le code
+```
+## ▶️ Exécution
+```
 ./minishell
+```
 Quitter : Ctrl+D ou exit
 
-🛠️ Développement & style
+## 🛠️ Développement & style
 Respecter les en-têtes et prototypes (includes/)
 
 Utiliser les fonctions utilitaires de libft (libft/includes/libft.h)
 
 Tests manuels : pipes, redirections, heredoc, expansions
 
-⚠️ Debug / erreurs courantes
+## ⚠️ Debug / erreurs courantes
 Vérifier errno avec perror (fork/pipe/open/execve)
 
 Si compilation échoue, vérifier que libft est correctement générée
 
-📑 Documentation
+## 📑 Documentation
 Guide Git - Workflow Git pour le projet
 
-📌 Fichiers clés
+## 📌 Fichiers clés
 Makefile — compilation
 
 srcs/core/init.c — init_shell, process_input
